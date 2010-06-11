@@ -41,7 +41,7 @@ script FinderWindowFunAppDelegate
 			else if viewMode is 1 then
 				set current view of every window to list view
 			else if viewMode is 2 then
-				--set current view of (every window whose name is not "") to column view -- see issue#1
+				--TODO NOK set current view of (every window whose name is not "") to column view
 				set current view of every window to column view -- see issue#1
 			else if viewMode is 3 then
 				set current view of every window to flow view
@@ -99,6 +99,7 @@ script FinderWindowFunAppDelegate
 		end tell
 	end toggle_
 	
+	-- Nice trick to maximize: set grid size to 1x1
 	on maximizeAll_(sender)
 		set oldrows to my rows
 		set oldcols to my cols
@@ -110,8 +111,6 @@ script FinderWindowFunAppDelegate
 	end maximizeAll_
 	
 	on resizeWindows_(sender)
-		
-		--tell colsField to setIntValue_(7)
 		
 		-- make sure we got integers
 		set rows to my rows as integer
@@ -195,10 +194,6 @@ script FinderWindowFunAppDelegate
 			end repeat
 		end tell
 	end resizeWindows_
-	
-	on windowWillClose_(sender)
-		display dialog "will close"
-	end windowWillClose_
 	
 	--TODO crashes in some cases:
 	--    hide toolbar, show sidebar, move mouse out of app window
