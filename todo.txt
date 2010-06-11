@@ -1,0 +1,21 @@
+resize windows
+move windows (detect borders, sux)
+lembrar valores
+configurar posicao inicial da janela no IB
+about
+icon
+donate
+sparkle
+
+crash when open About
+	
+tile windows
+nr of opened windows
+list of names/paths
+config: ignore info panels/windows
+config: choose screen: first/2nd/3rd item of NSScreen's screens
+show hide pathbar (objc)
+close windows / save session
+stats: nr windows (normal, minimized, info panel)
+open list of files/folders in windows (restore session)
+make it a menubar app?

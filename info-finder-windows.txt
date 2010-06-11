@@ -1,0 +1,132 @@
+FinderWindowFun - Finder Windows Information
+
+-----------------------------------------------------------------------------
+Default Window
+-----------------------------------------------------------------------------
+
+- Title bar height: 22
+
+properties: {
+	class:Finder window,
+	id:13605,
+	name:"/a/applescript",
+	position:{900, 44},
+	bounds:{900, 44, 1212, 260},
+	index:1,
+	zoomed:false,
+	closeable:true,
+	titled:true,
+	floating:false,
+	modal:false,
+	resizable:true,
+	zoomable:true,
+	visible:true,
+	collapsed:false,
+	target:folder "applescript" of folder "a" of startup disk of application "Finder",
+	current view:column view,
+	icon view options:icon view options of Finder window id 13605 of application "Finder",
+	list view options:list view options of Finder window id 13605 of application "Finder",
+	column view options:column view options of Finder window id 13605 of application "Finder",
+	toolbar visible:false,
+	statusbar visible:true,
+	sidebar width:120
+}
+
+
+-----------------------------------------------------------------------------
+Search Window
+-----------------------------------------------------------------------------
+
+- Can't use column view (see issue#1)
+- ID: name:""
+- ID: target:alias file "" of application "Finder"
+- Title bar height: 22
+
+properties: {
+	class:Finder window,
+	id:23499,
+	name:"",
+	position:{546, 379},
+	bounds:{546, 379, 874, 636},
+	index:1,
+	zoomed:false,
+	closeable:true,
+	titled:true,
+	floating:false,
+	modal:false,
+	resizable:true,
+	zoomable:true,
+	visible:true,
+	collapsed:false,
+	target:alias file "" of application "Finder",
+	current view:list view,
+	icon view options:icon view options of Finder window id 23499 of application "Finder",
+	list view options:list view options of Finder window id 23499 of application "Finder",
+	column view options:column view options of Finder window id 23499 of application "Finder",
+	toolbar visible:true,
+	statusbar visible:true,
+	sidebar width:120
+}
+
+
+-----------------------------------------------------------------------------
+Info panel (Command-I)
+-----------------------------------------------------------------------------
+
+- Title bar height: 22
+- ID: class:information window
+
+properties: {
+	class:information window,
+	id:26815,
+	name:"Informações de file.txt",
+	position:{307, 44},
+	bounds:{307, 44, 646, 911},
+	index:1,
+	zoomed:false,
+	closeable:true,
+	titled:true,
+	floating:false,
+	modal:false,
+	resizable:true,
+	zoomable:true,
+	visible:true,
+	collapsed:false,
+	item:document file "file.txt" of folder "applescript" of folder "a" of startup disk of application "Finder",
+	current panel:Comments panel
+}
+
+
+-----------------------------------------------------------------------------
+Special info panel (Option-Command-I)
+-----------------------------------------------------------------------------
+
+- Can't be minimized
+- Hides when user switches to another app
+- It's always the "front window", even if other Finder window is active
+- ID: floating:true
+- ID: class:window
+- Title bar height: 16 (see issue#3)
+
+properties: {
+	class:window,
+	id:31172,
+	name:"Informações de file.txt",
+	position:{0,
+	38},
+	bounds:{0,
+	38,
+	339,
+	905},
+	index:1,
+	zoomed:false,
+	closeable:true,
+	titled:true,
+	floating:true,
+	modal:false,
+	resizable:true,
+	zoomable:true,
+	visible:true,
+	collapsed:false
+}
+

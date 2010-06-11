@@ -1,0 +1,87 @@
+FinderWindowFun Issues
+
+
+-----------------------------------------------------------------------------
+issue#1 - Search windows can't use column view
+-----------------------------------------------------------------------------
+
+The searching for something, the Finder window changes to search mode. On this mode, the column view is not available. If you try to set column view on it, the following error raises:
+
+Finder got an error: AppleEvent handler failed. (error -10000)
+
+When setting view mode to columns, you must skip search windows.
+Search windows can be identified by {name:""}
+
+XXX TODO
+
+-----------------------------------------------------------------------------
+issue#2 - Position is relative to window contents, excluding the title bar
+-----------------------------------------------------------------------------
+
+The Finder window position/bounds properties are relative to the window CONTENTS, ignoring the window title bar. So, if you must position the Finder window top/left at screen X,Y coordinates (100,100), you must set its position to (100,122) - the extra 22 pixels are the title bar height.
+
+Example:
+	Finder window sized 300x200 positioned at top left of the screen, gives:
+		position:{0, 44}
+		bounds:{0, 44, 300, 222}
+	where:
+		0, 44 = window top left X,Y coordinates
+		300,222 = window bottom right X,Y coordinates
+	so:	
+		44 = system menu bar height (22px) + Finder window title bar height (22px)
+		222 = top left Y position (44px) + window height (200px) - title bar height (22px)
+
+-----------------------------------------------------------------------------
+issue#3 - Special info window title bar height is 16 not 22
+-----------------------------------------------------------------------------
+
+Title bar height of Finder windows:
+22px - Default Finder window
+22px - Default Finder window when searching
+22px - Info window (Command-I)
+16px - Special info window (Option-Command-I)
+
+When positioning windows, you must take that difference into account.
+Special info windows are identified by {floating:true}
+
+Since ignoreInfoWindow is the default behavior, I'll let that alone for now.
+
+-----------------------------------------------------------------------------
+issue#4 - Get screen size
+-----------------------------------------------------------------------------
+
+I'm using NSScreen to get the screen size and available size.
+It's the most reliable method I've found, and works since OS X 10.0.0.
+The only drawback is that the origin is bottom/left, and Finder's is top/left (see issue#7)
+
+-----------------------------------------------------------------------------
+issue#5 - Around 10px at bottom when Dock is at bottom and hidden
+-----------------------------------------------------------------------------
+
+NSScreen's visibleFrame() docs: Even when dock hiding is enabled, the rectangle returned by this method may be smaller than the full screen. The system uses a small boundary area to determine when it should display the dock.
+
+-----------------------------------------------------------------------------
+issue#6 - Multiple displays
+-----------------------------------------------------------------------------
+
+Everything is fine on single monitor setups.
+Multiple screens are complicated, they can be everywhere.
+
+I always snap windows to main screen (that with Dock/menubar).
+This is the only screen whose origin (bottom/left) is 0,0.
+Screens at left or bottom are negative.
+Screens at right starts at main screen width.
+
+To use secondary screens for snap, there are some gotchas:
+
+- It only works if the user aligned secondary screens at the top of the main, so I can calculate the top/left coordinate. This limitation is caused by issue#7.
+- I could workaround this by analyzing the main screen dimensions and recalculate the top/left point. I'll left it for the future.
+
+-----------------------------------------------------------------------------
+issue#7 - Screen origin differs to NSScreen and Finder
+-----------------------------------------------------------------------------
+
+NSScreen methods considers the screen origin 0,0 at bottom/left.
+Finder position/bounds properties considers 0,0 at top/left.
+
+As windows are snapped from top to bottom, you need to calculate the top/left coordinate using bottom/left coordinates and screen available size, both provided by NSScreen.
