@@ -5,8 +5,7 @@ lembrar valores
 configurar posicao inicial da janela no IB
 icon
 donate
-put SVN release number inside app version string (see AdiumBook)
-sparkle
+0sparkle
 
 tile windows
 nr of opened windows
