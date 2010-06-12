@@ -3,7 +3,6 @@ resize windows
 move windows (detect borders, sux)
 lembrar valores
 configurar posicao inicial da janela no IB
-about
 icon
 donate
 put SVN release number inside app version string (see AdiumBook)

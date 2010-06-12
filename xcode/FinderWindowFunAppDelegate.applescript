@@ -30,11 +30,13 @@ script FinderWindowFunAppDelegate
 	
 	-- preferences
 	property ignoreInfoWindow : true
+	property activateFinder : true
+	property alwaysOnTop : true
 	
 	on setView_(sender)
 		set viewMode to sender's selectedSegment()
 		tell application "Finder"
-			activate
+			if activateFinder then activate
 			if viewMode is 0 then
 				set current view of every window to icon view
 			else if viewMode is 1 then
@@ -73,7 +75,7 @@ script FinderWindowFunAppDelegate
 	
 	on toggleToolbar_(sender)
 		tell application "Finder"
-			activate
+			if activateFinder then activate
 			if (title of sender as text) is "Show" then
 				set toolbar visible of every window to true
 			else
@@ -86,7 +88,7 @@ script FinderWindowFunAppDelegate
 		set senderName to (title of sender as text)
 		set onoff to senderName does not start with "un" -- true/false
 		tell application "Finder"
-			activate
+			if activateFinder then activate
 			if senderName contains "minimize" then
 				set collapsed of every window to onoff
 			else if senderName contains "zoom" then
@@ -168,7 +170,7 @@ script FinderWindowFunAppDelegate
 		
 		-- Snap windows to grid
 		tell application "Finder"
-			activate
+			if activateFinder then activate
 			set _slots to (count thePositions) -- number of grid slots
 			set _slot to 1 -- index is 1 not 0
 			
@@ -204,10 +206,14 @@ script FinderWindowFunAppDelegate
 		
 		-- Make sure we're always on top of: normal, info and special info windows
 		-- But below App switch and Finder menus
-		myWindow's setLevel_(current application's NSModalPanelWindowLevel)
+		if alwaysOnTop then
+			myWindow's setLevel_(current application's NSModalPanelWindowLevel)
+		end if
 		
-		tell application "Finder" to activate
-		tell me to activate
+		if activateFinder then
+			tell application "Finder" to activate
+			tell me to activate
+		end if
 	end applicationWillFinishLaunching_
 	
 	on applicationShouldTerminate_(sender)
