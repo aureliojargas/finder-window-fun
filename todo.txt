@@ -8,7 +8,6 @@ icon
 donate
 put SVN release number inside app version string (see AdiumBook)
 sparkle
-Window > Close  ⌘W
 
 tile windows
 nr of opened windows
