@@ -16,8 +16,7 @@ script FinderWindowFunAppDelegate
 	property parent : class "NSObject"
 	
 	-- IB outlets
-	--property rowsField : missing value
-	--property colsField : missing value
+	property myWindow : missing value
 	
 	-- bindings
 	property rows : 2
@@ -195,22 +194,20 @@ script FinderWindowFunAppDelegate
 		end tell
 	end resizeWindows_
 	
-	--TODO crashes in some cases:
-	--    hide toolbar, show sidebar, move mouse out of app window
-	--    see tooltip of Minimize button, move mouse
-	--
 	-- quit on window close
-	--	on applicationShouldTerminateAfterLastWindowClosed_(sender)
-	--		return true
-	--	end applicationShouldTerminateAfterLastWindowClosed_
-	
+	on applicationShouldTerminateAfterLastWindowClosed_(sender)
+		return true
+	end applicationShouldTerminateAfterLastWindowClosed_
 	
 	on applicationWillFinishLaunching_(aNotification)
 		-- Insert code here to initialize your application before any files are opened
+		
+		-- Make sure we're always on top of: normal, info and special info windows
+		-- But below App switch and Finder menus
+		myWindow's setLevel_(current application's NSModalPanelWindowLevel)
+		
 		tell application "Finder" to activate
 		tell me to activate
-		
-		--display dialog (id of window "FinderWindowFun")
 	end applicationWillFinishLaunching_
 	
 	on applicationShouldTerminate_(sender)

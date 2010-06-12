@@ -1,3 +1,4 @@
+before release:
 resize windows
 move windows (detect borders, sux)
 lembrar valores
@@ -6,9 +7,9 @@ about
 icon
 donate
 sparkle
+Window > Close  ⌘W
 
-crash when open About
-	
+
 tile windows
 nr of opened windows
 list of names/paths
