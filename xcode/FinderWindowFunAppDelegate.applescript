@@ -23,6 +23,7 @@ script FinderWindowFunAppDelegate
 	property cols : 2
 	property marginBetweenWindows : 0
 	property sidebarWidth : 120
+	property edgeWindow : 0
 	
 	-- constants
 	property menuBarHeight : 22 -- system's top menu bar
@@ -32,6 +33,7 @@ script FinderWindowFunAppDelegate
 	property ignoreInfoWindow : true
 	property activateFinder : true
 	property alwaysOnTop : true
+	property oneWindow : false
 	
 	
 	-----------------------------------------------------------------------------
@@ -98,9 +100,8 @@ script FinderWindowFunAppDelegate
 	end _getGridBounds
 	
 	on _snapToEdge(_edge)
-		log (_edge)
-		set _bounds to {}
 		-- Use grid bounds to get window positioning: top/bottom 2x1, left/right 1x2, margin 0
+		set _bounds to {}
 		if _edge is "top" then
 			set _bounds to item 1 of _getGridBounds(2, 1, 0)
 		else if _edge is "bottom" then
@@ -131,6 +132,9 @@ script FinderWindowFunAppDelegate
 						
 						-- Move and resize window
 						set bounds to (item _slot of _bounds)
+						
+						-- Maybe we're in one-window mode?
+						if my oneWindow then return
 						
 						-- Set next slot
 						set _slot to _slot + 1
@@ -206,7 +210,9 @@ script FinderWindowFunAppDelegate
 	end maximize_
 	
 	on snapToEdge_(sender)
+		if (my edgeWindow as integer) is 0 then set my oneWindow to true
 		_snapToEdge(title of sender as text)
+		set my oneWindow to false
 	end snapToEdge_
 	
 	on setView_(sender)

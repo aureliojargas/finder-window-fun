@@ -1,7 +1,5 @@
 before release:
 lembrar valores (userprefs)
-snap to edges (top, bottom, right, left, tks @souzainf3)
-(X) all windows  ( ) front window -- getWindows()
 preference: ignore minimized windows -- getWindows()
 getTileOrigins(nr_windows)
 resize windows
