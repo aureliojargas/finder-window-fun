@@ -35,6 +35,7 @@ script FinderWindowFunAppDelegate
 	property activateFinder : true
 	property alwaysOnTop : true
 	property oneWindow : false
+	property stackOffset : {22, 22} -- x,y
 	
 	
 	-----------------------------------------------------------------------------
@@ -99,6 +100,21 @@ script FinderWindowFunAppDelegate
 		
 		return _bounds
 	end _getGridBounds
+	
+	on _stack()
+		set _screen to _getAvailableScreenSize()
+		set x to (_screen's _left)
+		set y to (_screen's _top) + titleBarHeight -- see issue#2
+		
+		tell application "Finder"
+			repeat with i from 1 to (count windows)
+				set window i's position to {x, y}
+				activate window i
+				set x to x + (item 1 of my stackOffset)
+				set y to y + (item 2 of my stackOffset)
+			end repeat
+		end tell
+	end _stack
 	
 	on _snapToEdge(_edge)
 		-- Use grid bounds to get window positioning: top/bottom 2x1, left/right 1x2, margin 0
@@ -217,6 +233,10 @@ script FinderWindowFunAppDelegate
 		_snapToEdge(title of sender as text)
 		set my oneWindow to false
 	end snapToEdge_
+	
+	on stack_(sender)
+		_stack()
+	end stack_
 	
 	on setView_(sender)
 		set i to (sender's selectedSegment()) + 1 -- segment is zero based

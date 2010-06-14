@@ -1,26 +1,22 @@
 before release:
 lembrar valores (userprefs)
-getTileOrigins(nr_windows)
 resize windows
 move windows (detect borders, sux)
-configurar posicao inicial da janela no IB
 icon
 donate
 sparkle
 
 make ignoreInfoWindow/ignoreMinimizedWindow work for all actions
-tile windows
+order by title before grid/stack?
 nr of opened windows
 list of names/paths
-config: ignore info panels/windows
 config: choose screen: first/2nd/3rd item of NSScreen's screens
-show hide pathbar (objc)
+show hide pathbar
 close windows / save session
 stats: nr windows (normal, minimized, info panel)
 open list of files/folders in windows (restore session)
 make it a menubar app?
 set statusbar visible of every window to true (doesn't work)
-
 
 docs: shift for slow motion (tks @thiagowitt)
  
