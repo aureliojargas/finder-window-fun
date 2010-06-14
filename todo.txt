@@ -1,6 +1,5 @@
 before release:
 lembrar valores (userprefs)
-preference: ignore minimized windows -- getWindows()
 getTileOrigins(nr_windows)
 resize windows
 move windows (detect borders, sux)
@@ -9,6 +8,7 @@ icon
 donate
 sparkle
 
+make ignoreInfoWindow/ignoreMinimizedWindow work for all actions
 tile windows
 nr of opened windows
 list of names/paths

@@ -30,7 +30,8 @@ script FinderWindowFunAppDelegate
 	property titleBarHeight : 22 -- or 16 for Special Info Window (see issue#3)
 	
 	-- preferences
-	property ignoreInfoWindow : true
+	property ignoreInfoWindow : true -- grid-only
+	property ignoreMinimizedWindow : true -- grid-only
 	property activateFinder : true
 	property alwaysOnTop : true
 	property oneWindow : false
@@ -126,9 +127,11 @@ script FinderWindowFunAppDelegate
 					
 					-- Detect info windows: normal and special
 					set _isInfoWindow to (class is information window) or (floating is true)
+					-- Detect minimized windows
+					set _isMinimized to collapsed
 					
-					-- Maybe skip info windows?
-					if not (my ignoreInfoWindow and _isInfoWindow) then
+					-- Maybe skip info/mini windows?
+					if not ((my ignoreInfoWindow and _isInfoWindow) or (my ignoreMinimizedWindow and _isMinimized)) then
 						
 						-- Move and resize window
 						set bounds to (item _slot of _bounds)
