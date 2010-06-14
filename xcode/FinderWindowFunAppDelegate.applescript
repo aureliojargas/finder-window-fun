@@ -33,123 +33,49 @@ script FinderWindowFunAppDelegate
 	property activateFinder : true
 	property alwaysOnTop : true
 	
-	on setView_(sender)
-		set viewMode to sender's selectedSegment()
-		tell application "Finder"
-			if activateFinder then activate
-			if viewMode is 0 then
-				set current view of every window to icon view
-			else if viewMode is 1 then
-				set current view of every window to list view
-			else if viewMode is 2 then
-				--TODO NOK set current view of (every window whose name is not "") to column view
-				set current view of every window to column view -- see issue#1
-			else if viewMode is 3 then
-				set current view of every window to flow view
-			end if
-		end tell
-	end setView_
 	
-	on set_toolbar_width(n)
-		tell application "Finder"
-			set sidebar width of every window to n
-		end tell
-	end set_toolbar_width
+	-----------------------------------------------------------------------------
+	-- Methods
 	
-	-- slider changed
-	on changeToolbarWidth_(sender)
-		set_toolbar_width(sidebarWidth as integer)
-	end changeToolbarWidth_
-	
-	on toggleSidebar_(sender)
-		if (title of sender as text) is "Show" then
-			
-			-- Toolbar must be visible for the sidebar to be shown
-			tell application "Finder" to set toolbar visible of every window to true
-			
-			set_toolbar_width(1) -- expands to min size
-		else
-			set_toolbar_width(0) -- hides
-		end if
-	end toggleSidebar_
-	
-	on toggleToolbar_(sender)
-		tell application "Finder"
-			if activateFinder then activate
-			if (title of sender as text) is "Show" then
-				set toolbar visible of every window to true
-			else
-				set toolbar visible of every window to false
-			end if
-		end tell
-	end toggleToolbar_
-	
-	on toggle_(sender)
-		set senderName to (title of sender as text)
-		set onoff to senderName does not start with "un" -- true/false
-		tell application "Finder"
-			if activateFinder then activate
-			if senderName contains "minimize" then
-				set collapsed of every window to onoff
-			else if senderName contains "zoom" then
-				set zoomed of every window to onoff
-				--
-				--NOK			else if senderName contains "status" then
-				--NOK				set statusbar visible of every window to onoff
-			end if
-		end tell
-	end toggle_
-	
-	-- Nice trick to maximize: set grid size to 1x1
-	on maximizeAll_(sender)
-		set oldrows to my rows
-		set oldcols to my cols
-		set my rows to 1
-		set my cols to 1
-		resizeWindows_(1)
-		set my rows to oldrows
-		set my cols to oldcols
-	end maximizeAll_
-	
-	on resizeWindows_(sender)
+	on _getAvailableScreenSize() -- see issue#4
 		
-		-- make sure we got integers
-		set rows to my rows as integer
-		set cols to my cols as integer
-		set marginBetweenWindows to my marginBetweenWindows as integer
-		
-		--
-		-- Get dock/menu screen available size (see issue#4)
-		--
-		
-		-- Choose the target screen for the snap (see issue#6)
-		set targetScreen to first item of NSScreen's screens() -- screen with dock/menu
+		-- Choose the target screen (see issue#6)
+		set _targetScreen to first item of NSScreen's screens() -- screen with dock/menu
 		--set targetScreen to NSScreen's mainScreen() -- screen with keyboard focus
 		
 		-- Get full size and available size
-		set screenRect to targetScreen's frame() -- with menu/dock
-		set availableScreenRect to targetScreen's visibleFrame() -- without menu/dock
-		set availableScreenOrigin to availableScreenRect's origin -- {x:0.0, y:4.0} (bottom/left)
-		set availableScreenSize to availableScreenRect's |size| -- {width:1280.0, height:998.0}
+		set _screenRect to _targetScreen's frame() -- with menu/dock
+		set _availableScreenRect to _targetScreen's visibleFrame() -- without menu/dock
+		set _availableScreenOrigin to _availableScreenRect's origin -- {x:0.0, y:4.0} (bottom/left)
+		set _availableScreenSize to _availableScreenRect's |size| -- {width:1280.0, height:998.0}
 		
 		-- Set available size width/height
-		set screenWidth to |width| of availableScreenSize
-		set screenHeight to height of availableScreenSize
+		set _width to |width| of _availableScreenSize
+		set _height to height of _availableScreenSize
 		
 		-- Set the starting point: top/left coordinate (see issue#7)
-		set screenTopLeft to {x:x of availableScreenOrigin, y:(height of |size| of screenRect) - (height of availableScreenSize) - (y of availableScreenOrigin)}
+		set _left to x of _availableScreenOrigin
+		set _top to (height of |size| of _screenRect) - (height of _availableScreenSize) - (y of _availableScreenOrigin)
+		
+		return {_top:_top, _left:_left, _width:_width, _height:_height}
+		
+	end _getAvailableScreenSize
+	
+	on _getGridBounds(_rows, _cols, _innerMargin)
+		
+		set _screen to _getAvailableScreenSize()
 		
 		-- Calculate window size
-		set windowWidth to (screenWidth - (marginBetweenWindows * (cols - 1))) / cols
-		set windowHeight to (screenHeight - (marginBetweenWindows * (rows - 1))) / rows
+		set _windowWidth to ((_screen's _width) - (_innerMargin * (_cols - 1))) / _cols
+		set _windowHeight to ((_screen's _height) - (_innerMargin * (_rows - 1))) / _rows
 		
 		-- TopLeft positions to compose the grid
-		set thePositions to {}
-		repeat with row from 1 to rows
-			repeat with col from 1 to cols
-				set the end of thePositions to {¬
-					(x of screenTopLeft) + (windowWidth + marginBetweenWindows) * (col - 1), ¬
-					(y of screenTopLeft) + (windowHeight + marginBetweenWindows) * (row - 1) + titleBarHeight ¬
+		set _positions to {}
+		repeat with _row from 1 to _rows
+			repeat with _col from 1 to _cols
+				set the end of _positions to {¬
+					(_screen's _left) + (_windowWidth + _innerMargin) * (_col - 1), ¬
+					(_screen's _top) + (_windowHeight + _innerMargin) * (_row - 1) + titleBarHeight ¬
 					} -- see issue#2
 			end repeat
 		end repeat
@@ -159,19 +85,23 @@ script FinderWindowFunAppDelegate
 		-- Note: topLeft_X is BELOW window title bar (see issue#2)
 		-- Note: See http://www.macosxhints.com/article.php?story=20100130231939451 for window resize with size not bounds, using System Events
 		--
-		set theBounds to {}
-		repeat with i from 1 to (count thePositions)
-			set bottomRight to {¬
-				(item 1 of item i of thePositions) + windowWidth, ¬
-				(item 2 of item i of thePositions) + windowHeight - titleBarHeight ¬
+		set _bounds to {}
+		repeat with i from 1 to (count _positions)
+			set _bottomRight to {¬
+				(item 1 of item i of _positions) + _windowWidth, ¬
+				(item 2 of item i of _positions) + _windowHeight - titleBarHeight ¬
 				} -- see issue#2
-			copy (item i of thePositions & bottomRight) to the end of theBounds
+			copy (item i of _positions & _bottomRight) to the end of _bounds
 		end repeat
 		
-		-- Snap windows to grid
+		return _bounds
+	end _getGridBounds
+	
+	on _snapToGrid(_bounds)
 		tell application "Finder"
 			if activateFinder then activate
-			set _slots to (count thePositions) -- number of grid slots
+			
+			set _slots to (count _bounds) -- number of grid slots
 			set _slot to 1 -- index is 1 not 0
 			
 			repeat with i from 1 to (count windows)
@@ -184,22 +114,113 @@ script FinderWindowFunAppDelegate
 					if not (my ignoreInfoWindow and _isInfoWindow) then
 						
 						-- Move and resize window
-						set bounds to (item _slot of theBounds)
+						set bounds to (item _slot of _bounds)
 						
 						-- Set next slot
 						set _slot to _slot + 1
 						if _slot is greater than _slots then set _slot to 1
-						
 					end if
 				end tell
 			end repeat
 		end tell
-	end resizeWindows_
+	end _snapToGrid
 	
-	-- quit on window close
-	on applicationShouldTerminateAfterLastWindowClosed_(sender)
-		return true
-	end applicationShouldTerminateAfterLastWindowClosed_
+	on _minimize(_bool)
+		tell application "Finder"
+			if activateFinder then activate
+			set collapsed of every window to _bool
+		end tell
+	end _minimize
+	
+	on _zoom(_bool)
+		tell application "Finder"
+			if activateFinder then activate
+			set zoomed of every window to _bool
+		end tell
+	end _zoom
+	
+	on _toolbar(_bool)
+		tell application "Finder"
+			if activateFinder then activate
+			set toolbar visible of every window to _bool
+		end tell
+	end _toolbar
+	
+	on _sidebar(_bool)
+		if _bool then
+			_toolbar(true) -- Toolbar must be visible for the sidebar to be shown
+			_setSidebarWidth(1) -- expands to minimum size
+		else
+			_setSidebarWidth(0) -- hides
+		end if
+	end _sidebar
+	
+	on _setSidebarWidth(n)
+		tell application "Finder" -- never activate to allow "live" resizing
+			set sidebar width of every window to n
+		end tell
+	end _setSidebarWidth
+	
+	on _setView(_name)
+		tell application "Finder"
+			if activateFinder then activate
+			if _name is "icon" then
+				set current view of every window to icon view
+			else if _name is "list" then
+				set current view of every window to list view
+			else if _name is "column" then
+				--TODO NOK set current view of (every window whose name is not "") to column view
+				set current view of every window to column view -- see issue#1
+			else if _name is "flow" then
+				set current view of every window to flow view
+			end if
+		end tell
+	end _setView
+	
+	
+	-----------------------------------------------------------------------------
+	-- UI action handlers
+	
+	on snapToGrid_(sender)
+		_snapToGrid(_getGridBounds(my rows as integer, my cols as integer, my marginBetweenWindows as integer))
+	end snapToGrid_
+	
+	on maximize_(sender)
+		_snapToGrid(_getGridBounds(1, 1, 0)) -- Nice trick: set grid size to 1x1
+	end maximize_
+	
+	on setView_(sender)
+		set i to (sender's selectedSegment()) + 1 -- segment is zero based
+		set _name to item i of {"icon", "list", "column", "flow"}
+		_setView(_name)
+	end setView_
+	
+	on toggleToolbar_(sender)
+		_toolbar((title of sender as text) is "Show")
+	end toggleToolbar_
+	
+	on toggleSidebar_(sender)
+		_sidebar((title of sender as text) is "Show")
+	end toggleSidebar_
+	
+	-- slider changed
+	on changeSidebarWidth_(sender)
+		_setSidebarWidth(sidebarWidth as integer)
+	end changeSidebarWidth_
+	
+	on toggle_(sender)
+		set _senderName to (title of sender as text)
+		set _onoff to _senderName does not start with "un" -- true/false
+		if _senderName contains "minimize" then
+			_minimize(_onoff)
+		else if _senderName contains "zoom" then
+			_zoom(_onoff)
+		end if
+	end toggle_
+	
+	
+	-----------------------------------------------------------------------------
+	-- Event handlers
 	
 	on applicationWillFinishLaunching_(aNotification)
 		-- Insert code here to initialize your application before any files are opened
@@ -215,6 +236,11 @@ script FinderWindowFunAppDelegate
 			tell me to activate
 		end if
 	end applicationWillFinishLaunching_
+	
+	-- quit on window close
+	on applicationShouldTerminateAfterLastWindowClosed_(sender)
+		return true
+	end applicationShouldTerminateAfterLastWindowClosed_
 	
 	on applicationShouldTerminate_(sender)
 		-- Insert code here to do any housekeeping before your application quits 

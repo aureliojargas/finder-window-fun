@@ -1842,14 +1842,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">resizeWindows:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="701444350"/>
-					</object>
-					<int key="connectionID">1469</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggle:</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="314811085"/>
@@ -1866,14 +1858,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">changeToolbarWidth:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="936973409"/>
-					</object>
-					<int key="connectionID">1472</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleToolbar:</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="498312319"/>
@@ -1887,14 +1871,6 @@
 						<reference key="destination" ref="846307684"/>
 					</object>
 					<int key="connectionID">1477</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">maximizeAll:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="151176292"/>
-					</object>
-					<int key="connectionID">1484</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1978,27 +1954,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">resizeWindows:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="180338104"/>
-					</object>
-					<int key="connectionID">1557</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggle:</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="576284966"/>
 					</object>
 					<int key="connectionID">1558</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeToolbarWidth:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="402141588"/>
-					</object>
-					<int key="connectionID">1559</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2023,14 +1983,6 @@
 						<reference key="destination" ref="169192276"/>
 					</object>
 					<int key="connectionID">1562</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">maximizeAll:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="482858393"/>
-					</object>
-					<int key="connectionID">1563</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2167,6 +2119,30 @@
 						<reference key="destination" ref="833065166"/>
 					</object>
 					<int key="connectionID">1577</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">snapToGrid:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="180338104"/>
+					</object>
+					<int key="connectionID">1578</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">maximize:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="482858393"/>
+					</object>
+					<int key="connectionID">1579</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeSidebarWidth:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="402141588"/>
+					</object>
+					<int key="connectionID">1580</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3951,14 +3927,14 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{53, 448}, {291, 20}}</string>
+					<string>{{324, 960}, {291, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
 					<string>{{6, 978}, {478, 20}}</string>
-					<string>{{386, 166}, {289, 520}}</string>
+					<string>{{324, 408}, {289, 520}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{386, 166}, {289, 520}}</string>
+					<string>{{324, 408}, {289, 520}}</string>
 					<boolean value="YES"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
@@ -4002,7 +3978,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1577</int>
+			<int key="maxID">1580</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4017,10 +3993,10 @@
 							<string>applicationShouldTerminate:</string>
 							<string>applicationShouldTerminateAfterLastWindowClosed:</string>
 							<string>applicationWillFinishLaunching:</string>
-							<string>changeToolbarWidth:</string>
-							<string>maximizeAll:</string>
-							<string>resizeWindows:</string>
+							<string>changeSidebarWidth:</string>
+							<string>maximize:</string>
 							<string>setView:</string>
+							<string>snapToGrid:</string>
 							<string>toggle:</string>
 							<string>toggleSidebar:</string>
 							<string>toggleToolbar:</string>
