@@ -36,6 +36,8 @@ script FinderWindowFunAppDelegate
 	property alwaysOnTop : true
 	property oneWindow : false
 	property stackOffset : {22, 22} -- x,y
+	property stackMargin : {300, 300} -- x,y
+	property stackBounceOffset : {200, 0} -- x,y
 	
 	
 	-----------------------------------------------------------------------------
@@ -102,16 +104,33 @@ script FinderWindowFunAppDelegate
 	end _getGridBounds
 	
 	on _stack()
+		-- Calculate limits
 		set _screen to _getAvailableScreenSize()
-		set x to (_screen's _left)
-		set y to (_screen's _top) + titleBarHeight -- see issue#2
+		set x_min to (_screen's _left)
+		set y_min to (_screen's _top) + titleBarHeight -- see issue#2
+		set x_max to x_min + (_screen's _width) - (my stackMargin's item 1)
+		set y_max to y_min + (_screen's _height) - (my stackMargin's item 2)
 		
+		-- Init
+		set x to x_min
+		set y to y_min
+		set _bounces to 0
+		
+		-- Stack
 		tell application "Finder"
 			repeat with i from 1 to (count windows)
 				set window i's position to {x, y}
 				activate window i
+				
 				set x to x + (item 1 of my stackOffset)
 				set y to y + (item 2 of my stackOffset)
+				
+				-- We're out of limits, let's bounce back to top
+				if y > y_max or x > x_max then
+					set _bounces to _bounces + 1
+					set x to x_min + (item 1 of my stackBounceOffset) * _bounces
+					set y to y_min + (item 2 of my stackBounceOffset) * _bounces
+				end if
 			end repeat
 		end tell
 	end _stack

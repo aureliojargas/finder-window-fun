@@ -2,6 +2,7 @@ before release:
 lembrar valores (userprefs)
 resize windows
 move windows (detect borders, sux)
+center app window on launch
 icon
 donate
 sparkle
