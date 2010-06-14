@@ -97,6 +97,22 @@ script FinderWindowFunAppDelegate
 		return _bounds
 	end _getGridBounds
 	
+	on _snapToEdge(_edge)
+		log (_edge)
+		set _bounds to {}
+		-- Use grid bounds to get window positioning: top/bottom 2x1, left/right 1x2, margin 0
+		if _edge is "top" then
+			set _bounds to item 1 of _getGridBounds(2, 1, 0)
+		else if _edge is "bottom" then
+			set _bounds to item 2 of _getGridBounds(2, 1, 0)
+		else if _edge is "left" then
+			set _bounds to item 1 of _getGridBounds(1, 2, 0)
+		else if _edge is "right" then
+			set _bounds to item 2 of _getGridBounds(1, 2, 0)
+		end if
+		_snapToGrid({_bounds}) -- the "grid" is made of just one position
+	end _snapToEdge
+	
 	on _snapToGrid(_bounds)
 		tell application "Finder"
 			if activateFinder then activate
@@ -188,6 +204,10 @@ script FinderWindowFunAppDelegate
 	on maximize_(sender)
 		_snapToGrid(_getGridBounds(1, 1, 0)) -- Nice trick: set grid size to 1x1
 	end maximize_
+	
+	on snapToEdge_(sender)
+		_snapToEdge(title of sender as text)
+	end snapToEdge_
 	
 	on setView_(sender)
 		set i to (sender's selectedSegment()) + 1 -- segment is zero based
