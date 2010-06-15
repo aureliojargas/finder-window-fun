@@ -1,5 +1,4 @@
 before release:
-lembrar valores (userprefs)
 resize windows
 move windows (detect borders, sux)
 icon

@@ -85,3 +85,12 @@ NSScreen methods considers the screen origin 0,0 at bottom/left.
 Finder position/bounds properties considers 0,0 at top/left.
 
 As windows are snapped from top to bottom, you need to calculate the top/left coordinate using bottom/left coordinates and screen available size, both provided by NSScreen.
+
+-----------------------------------------------------------------------------
+issue#8 - Sliders value is not updated on startup
+-----------------------------------------------------------------------------
+
+I'm NSUserDefaults to store sliders (rows, cols, margin) position, and the text field of each slider is linked to it via takeIntvalueFrom:. Everything work fine inside the app: when user changes the slider, the text field value is updated.
+
+The problem is on the app startup. User Defaults are read and slider positions are set, but the text fields aren't. I don't know why, but sendig a performClick: to the slider, forces the text field to update itself, so it's the solution I'm using for now.
+

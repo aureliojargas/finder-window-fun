@@ -291,18 +291,25 @@ script FinderWindowFunAppDelegate
 	-----------------------------------------------------------------------------
 	-- Event handlers
 	
-	on applicationWillFinishLaunching_(aNotification)
-		-- Insert code here to initialize your application before any files are opened
-		
-		-- Set default values for preferences (before user sets them)
+	on initialize()
+		-- Set default values for preferences
 		set userDefaults to NSUserDefaults's standardUserDefaults()
 		userDefaults's registerDefaults_({gridRows:2, gridCols:2, gridInnerMargin:0, edgeWindows:0})
+	end initialize
+	
+	on applicationWillFinishLaunching_(aNotification)
+		-- Insert code here to initialize your application before any files are opened
 		
 		-- Make sure we're always on top of: normal, info and special info windows
 		-- But below App switch and Finder menus
 		if alwaysOnTop then
 			myWindow's setLevel_(current application's NSModalPanelWindowLevel)
 		end if
+		
+		-- Click sliders to update their value text field (see issue#8)
+		tell gridRows to performClick_(myWindow)
+		tell gridCols to performClick_(myWindow)
+		tell gridInnerMargin to performClick_(myWindow)
 		
 		if activateFinder then
 			tell application "Finder" to activate
