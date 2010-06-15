@@ -11,27 +11,28 @@
 --
 
 property NSScreen : class "NSScreen"
+property NSUserDefaults : class "NSUserDefaults"
 
 script FinderWindowFunAppDelegate
 	property parent : class "NSObject"
 	
 	-- IB outlets
 	property myWindow : missing value
+	property gridRows : missing value
+	property gridCols : missing value
+	property gridInnerMargin : missing value
+	property edgeWindows : missing value
 	
 	-- bindings
-	property rows : 2
-	property cols : 2
-	property marginBetweenWindows : 0
 	property sidebarWidth : 120
-	property edgeWindow : 0
 	
 	-- constants
 	property menuBarHeight : 22 -- system's top menu bar
 	property titleBarHeight : 22 -- or 16 for Special Info Window (see issue#3)
 	
 	-- preferences
-	property ignoreInfoWindow : true -- grid-only
-	property ignoreMinimizedWindow : true -- grid-only
+	property ignoreInfoWindow : true -- snap-only
+	property ignoreMinimizedWindow : true -- snap-only
 	property activateFinder : true
 	property alwaysOnTop : true
 	property oneWindow : false
@@ -240,7 +241,7 @@ script FinderWindowFunAppDelegate
 	-- UI action handlers
 	
 	on snapToGrid_(sender)
-		_snapToGrid(_getGridBounds(my rows as integer, my cols as integer, my marginBetweenWindows as integer))
+		_snapToGrid(_getGridBounds(my gridRows's intValue(), my gridCols's intValue(), my gridInnerMargin's intValue()))
 	end snapToGrid_
 	
 	on maximize_(sender)
@@ -248,7 +249,7 @@ script FinderWindowFunAppDelegate
 	end maximize_
 	
 	on snapToEdge_(sender)
-		if (my edgeWindow as integer) is 0 then set my oneWindow to true
+		if (my edgeWindows's selectedColumn()) is 0 then set my oneWindow to true
 		_snapToEdge(title of sender as text)
 		set my oneWindow to false
 	end snapToEdge_
@@ -292,6 +293,10 @@ script FinderWindowFunAppDelegate
 	
 	on applicationWillFinishLaunching_(aNotification)
 		-- Insert code here to initialize your application before any files are opened
+		
+		-- Set default values for preferences (before user sets them)
+		set userDefaults to NSUserDefaults's standardUserDefaults()
+		userDefaults's registerDefaults_({gridRows:2, gridCols:2, gridInnerMargin:0, edgeWindows:0})
 		
 		-- Make sure we're always on top of: normal, info and special info windows
 		-- But below App switch and Finder menus
