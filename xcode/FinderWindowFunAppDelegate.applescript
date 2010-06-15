@@ -31,18 +31,30 @@ script FinderWindowFunAppDelegate
 	property titleBarHeight : 22 -- or 16 for Special Info Window (see issue#3)
 	
 	-- preferences
-	property ignoreInfoWindow : true -- snap-only
-	property ignoreMinimizedWindow : true -- snap-only
-	property activateFinder : true
-	property alwaysOnTop : true
+	property userDefaults : "" -- set on app init
+	property factorySettings : {gridRows:2, gridCols:2, gridInnerMargin:0, edgeWindows:0, ignoreInfoWindow:true, ignoreMinimizedWindow:true, activateFinder:true, alwaysOnTop:true, stackOffset:{22, 22}, stackMargin:{300, 300}, stackBounceOffset:{200, 0}}
+	
+	-- globals	
 	property oneWindow : false
-	property stackOffset : {22, 22} -- x,y
-	property stackMargin : {300, 300} -- x,y
-	property stackBounceOffset : {200, 0} -- x,y
 	
 	
 	-----------------------------------------------------------------------------
 	-- Methods
+	
+	on _maybeActivateFinder()
+		if my userDefaults's boolForKey_("activateFinder") then
+			tell application "Finder" to activate
+		end if
+	end _maybeActivateFinder
+	
+	on _setAppWindowLevel()
+		if my userDefaults's boolForKey_("alwaysOnTop") then
+			-- On top of normal, info and special info, below App switch and Finder menus			
+			myWindow's setLevel_(current application's NSModalPanelWindowLevel)
+		else
+			myWindow's setLevel_(current application's NSNormalWindowLevel)
+		end if
+	end _setAppWindowLevel
 	
 	on _getAvailableScreenSize() -- see issue#4
 		
@@ -105,12 +117,17 @@ script FinderWindowFunAppDelegate
 	end _getGridBounds
 	
 	on _stack()
+		-- Get defaults
+		set _stackMargin to my userDefaults's arrayForKey_("stackMargin")
+		set _stackOffset to my userDefaults's arrayForKey_("stackOffset")
+		set _stackBounceOffset to my userDefaults's arrayForKey_("stackBounceOffset")
+		
 		-- Calculate limits
 		set _screen to _getAvailableScreenSize()
 		set x_min to (_screen's _left)
 		set y_min to (_screen's _top) + titleBarHeight -- see issue#2
-		set x_max to x_min + (_screen's _width) - (my stackMargin's item 1)
-		set y_max to y_min + (_screen's _height) - (my stackMargin's item 2)
+		set x_max to x_min + (_screen's _width) - (_stackMargin's item 1)
+		set y_max to y_min + (_screen's _height) - (_stackMargin's item 2)
 		
 		-- Init
 		set x to x_min
@@ -123,14 +140,14 @@ script FinderWindowFunAppDelegate
 				set window i's position to {x, y}
 				activate window i
 				
-				set x to x + (item 1 of my stackOffset)
-				set y to y + (item 2 of my stackOffset)
+				set x to x + (item 1 of _stackOffset)
+				set y to y + (item 2 of _stackOffset)
 				
 				-- We're out of limits, let's bounce back to top
 				if y > y_max or x > x_max then
 					set _bounces to _bounces + 1
-					set x to x_min + (item 1 of my stackBounceOffset) * _bounces
-					set y to y_min + (item 2 of my stackBounceOffset) * _bounces
+					set x to x_min + (item 1 of _stackBounceOffset) * _bounces
+					set y to y_min + (item 2 of _stackBounceOffset) * _bounces
 				end if
 			end repeat
 		end tell
@@ -152,9 +169,10 @@ script FinderWindowFunAppDelegate
 	end _snapToEdge
 	
 	on _snapToGrid(_bounds)
+		set _ignoreInfoWindow to my userDefaults's boolForKey_("IgnoreInfoWindow")
+		set _ignoreMiniWindow to my userDefaults's boolForKey_("IgnoreMinimizedWindow")
+		
 		tell application "Finder"
-			if activateFinder then activate
-			
 			set _slots to (count _bounds) -- number of grid slots
 			set _slot to 1 -- index is 1 not 0
 			
@@ -167,7 +185,7 @@ script FinderWindowFunAppDelegate
 					set _isMinimized to collapsed
 					
 					-- Maybe skip info/mini windows?
-					if not ((my ignoreInfoWindow and _isInfoWindow) or (my ignoreMinimizedWindow and _isMinimized)) then
+					if not ((_ignoreInfoWindow and _isInfoWindow) or (_ignoreMiniWindow and _isMinimized)) then
 						
 						-- Move and resize window
 						set bounds to (item _slot of _bounds)
@@ -185,24 +203,15 @@ script FinderWindowFunAppDelegate
 	end _snapToGrid
 	
 	on _minimize(_bool)
-		tell application "Finder"
-			if activateFinder then activate
-			set collapsed of every window to _bool
-		end tell
+		tell application "Finder" to set collapsed of every window to _bool
 	end _minimize
 	
 	on _zoom(_bool)
-		tell application "Finder"
-			if activateFinder then activate
-			set zoomed of every window to _bool
-		end tell
+		tell application "Finder" to set zoomed of every window to _bool
 	end _zoom
 	
 	on _toolbar(_bool)
-		tell application "Finder"
-			if activateFinder then activate
-			set toolbar visible of every window to _bool
-		end tell
+		tell application "Finder" to set toolbar visible of every window to _bool
 	end _toolbar
 	
 	on _sidebar(_bool)
@@ -215,14 +224,11 @@ script FinderWindowFunAppDelegate
 	end _sidebar
 	
 	on _setSidebarWidth(n)
-		tell application "Finder" -- never activate to allow "live" resizing
-			set sidebar width of every window to n
-		end tell
+		tell application "Finder" to set sidebar width of every window to n
 	end _setSidebarWidth
 	
 	on _setView(_name)
 		tell application "Finder"
-			if activateFinder then activate
 			if _name is "icon" then
 				set current view of every window to icon view
 			else if _name is "list" then
@@ -241,43 +247,52 @@ script FinderWindowFunAppDelegate
 	-- UI action handlers
 	
 	on snapToGrid_(sender)
+		_maybeActivateFinder()
 		_snapToGrid(_getGridBounds(my gridRows's intValue(), my gridCols's intValue(), my gridInnerMargin's intValue()))
 	end snapToGrid_
 	
 	on maximize_(sender)
+		_maybeActivateFinder()
 		_snapToGrid(_getGridBounds(1, 1, 0)) -- Nice trick: set grid size to 1x1
 	end maximize_
 	
 	on snapToEdge_(sender)
+		_maybeActivateFinder()
 		if (my edgeWindows's selectedColumn()) is 0 then set my oneWindow to true
 		_snapToEdge(title of sender as text)
 		set my oneWindow to false
 	end snapToEdge_
 	
 	on stack_(sender)
+		_maybeActivateFinder()
 		_stack()
 	end stack_
 	
 	on setView_(sender)
+		_maybeActivateFinder()
 		set i to (sender's selectedSegment()) + 1 -- segment is zero based
 		set _name to item i of {"icon", "list", "column", "flow"}
 		_setView(_name)
 	end setView_
 	
 	on toggleToolbar_(sender)
+		_maybeActivateFinder()
 		_toolbar((title of sender as text) is "Show")
 	end toggleToolbar_
 	
 	on toggleSidebar_(sender)
+		_maybeActivateFinder()
 		_sidebar((title of sender as text) is "Show")
 	end toggleSidebar_
 	
 	-- slider changed
 	on changeSidebarWidth_(sender)
+		-- never activate Finder to allow "live" resizing
 		_setSidebarWidth(sidebarWidth as integer)
 	end changeSidebarWidth_
 	
 	on toggle_(sender)
+		_maybeActivateFinder()
 		set _senderName to (title of sender as text)
 		set _onoff to _senderName does not start with "un" -- true/false
 		if _senderName contains "minimize" then
@@ -291,30 +306,24 @@ script FinderWindowFunAppDelegate
 	-----------------------------------------------------------------------------
 	-- Event handlers
 	
-	on initialize()
-		-- Set default values for preferences
-		set userDefaults to NSUserDefaults's standardUserDefaults()
-		userDefaults's registerDefaults_({gridRows:2, gridCols:2, gridInnerMargin:0, edgeWindows:0})
-	end initialize
-	
 	on applicationWillFinishLaunching_(aNotification)
 		-- Insert code here to initialize your application before any files are opened
 		
-		-- Make sure we're always on top of: normal, info and special info windows
-		-- But below App switch and Finder menus
-		if alwaysOnTop then
-			myWindow's setLevel_(current application's NSModalPanelWindowLevel)
-		end if
+		-- Set default values for preferences
+		set my userDefaults to NSUserDefaults's standardUserDefaults()
+		my userDefaults's registerDefaults_(factorySettings)
+		
+		-- We're Always on Top or not?
+		_setAppWindowLevel()
 		
 		-- Click sliders to update their value text field (see issue#8)
 		tell gridRows to performClick_(myWindow)
 		tell gridCols to performClick_(myWindow)
 		tell gridInnerMargin to performClick_(myWindow)
 		
-		if activateFinder then
-			tell application "Finder" to activate
-			tell me to activate
-		end if
+		-- Bring Finder to focus, so the user can see what's happening
+		_maybeActivateFinder()
+		tell me to activate
 	end applicationWillFinishLaunching_
 	
 	-- quit on window close

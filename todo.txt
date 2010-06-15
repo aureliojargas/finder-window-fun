@@ -16,6 +16,7 @@ stats: nr windows (normal, minimized, info panel)
 open list of files/folders in windows (restore session)
 make it a menubar app?
 set statusbar visible of every window to true (doesn't work)
+how to set gridInnerMargin preference to integer?
 
 docs: shift for slow motion (tks @thiagowitt)
  
