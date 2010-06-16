@@ -13,6 +13,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		E706531811C888D5003A6C17 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E706531711C888D5003A6C17 /* WebKit.framework */; };
 		E79D66A111C2BE1E00FA04BE /* button-minimize.png in Resources */ = {isa = PBXBuildFile; fileRef = E79D669E11C2BE1E00FA04BE /* button-minimize.png */; };
 		E79D66A211C2BE1E00FA04BE /* button-zoom.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E79D669F11C2BE1E00FA04BE /* button-zoom.jpg */; };
 		E79D66A311C2BE1E00FA04BE /* finder-window-sketch.png in Resources */ = {isa = PBXBuildFile; fileRef = E79D66A011C2BE1E00FA04BE /* finder-window-sketch.png */; };
@@ -31,6 +32,7 @@
 		3BC3FB030ED20C27004AC079 /* AppleScriptObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptObjC.framework; path = /System/Library/Frameworks/AppleScriptObjC.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* FinderWindowFun-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FinderWindowFun-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* FinderWindowFun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinderWindowFun.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E706531711C888D5003A6C17 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E79D669E11C2BE1E00FA04BE /* button-minimize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-minimize.png"; sourceTree = "<group>"; };
 		E79D669F11C2BE1E00FA04BE /* button-zoom.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "button-zoom.jpg"; sourceTree = "<group>"; };
 		E79D66A011C2BE1E00FA04BE /* finder-window-sketch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "finder-window-sketch.png"; sourceTree = "<group>"; };
@@ -43,6 +45,7 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				3BC3FB040ED20C27004AC079 /* AppleScriptObjC.framework in Frameworks */,
+				E706531811C888D5003A6C17 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +75,7 @@
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				E706531711C888D5003A6C17 /* WebKit.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";

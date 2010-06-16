@@ -22,6 +22,7 @@ script FinderWindowFunAppDelegate
 	property gridCols : missing value
 	property gridInnerMargin : missing value
 	property edgeWindows : missing value
+	property gridWebView : missing value
 	
 	-- bindings
 	property sidebarWidth : 120
@@ -36,6 +37,9 @@ script FinderWindowFunAppDelegate
 	
 	-- globals	
 	property oneWindow : false
+	property gridPreviewHtmlStart : "<html><head><style>body{margin:0;padding:0;} table{width:100%;height:100%;border-spacing:3px;background-color:gray;} td{background-color:white;}</style></head><body><table>"
+	property gridPreviewHtmlEnd : "</table></body></html>"
+	
 	
 	
 	-----------------------------------------------------------------------------
@@ -202,6 +206,21 @@ script FinderWindowFunAppDelegate
 		end tell
 	end _snapToGrid
 	
+	on _move(_steps) -- {x,y}
+		tell application "Finder"
+			repeat with i from 1 to (count windows)
+				tell window i
+					set _current to position
+					set position to {¬
+						(item 1 of _current) + (item 1 of _steps), ¬
+						(item 2 of _current) + (item 2 of _steps) ¬
+						}
+				end tell
+			end repeat
+		end tell
+	end _move
+	
+	
 	on _minimize(_bool)
 		tell application "Finder" to set collapsed of every window to _bool
 	end _minimize
@@ -242,9 +261,34 @@ script FinderWindowFunAppDelegate
 		end tell
 	end _setView
 	
+	on _updateGridPreview()
+		
+		-- Compose grid preview HTML table
+		set _rows to my gridRows's intValue()
+		set _cols to my gridCols's intValue()
+		set _htmlTable to {}
+		repeat _rows times
+			set the end of _htmlTable to "<tr>"
+			repeat _cols times
+				set the end of _htmlTable to "<td></td>"
+			end repeat
+			set the end of _htmlTable to "</tr>"
+		end repeat
+		
+		-- WebView needs an URL to load the HTML string, let's make one
+		set fakeUrl to URLWithString_("http://example.com") of class "NSURL" of current application
+		
+		-- Load the composed HTML to the grid preview
+		tell gridWebView's mainFrame to loadHTMLString_baseURL_(my gridPreviewHtmlStart & (_htmlTable as text) & my gridPreviewHtmlEnd, fakeUrl)
+		
+	end _updateGridPreview
 	
 	-----------------------------------------------------------------------------
 	-- UI action handlers
+	
+	on gridSliderChanged_(sender)
+		_updateGridPreview()
+	end gridSliderChanged_
 	
 	on snapToGrid_(sender)
 		_maybeActivateFinder()
@@ -267,6 +311,20 @@ script FinderWindowFunAppDelegate
 		_maybeActivateFinder()
 		_stack()
 	end stack_
+	
+	on move_(sender)
+		set _direction to (title of sender as text)
+		--set _coordinates to {▲:{0,-1},▶:{1,0},▼:{0,1},◀:{-1,0}}
+		if _direction is "▲" then
+			_move({0, -1})
+		else if _direction is "▼" then
+			_move({0, 1})
+		else if _direction is "◀" then
+			_move({-1, 0})
+		else if _direction is "▶" then
+			_move({1, 0})
+		end if
+	end move_
 	
 	on setView_(sender)
 		_maybeActivateFinder()
@@ -317,9 +375,11 @@ script FinderWindowFunAppDelegate
 		_setAppWindowLevel()
 		
 		-- Click sliders to update their value text field (see issue#8)
-		tell gridRows to performClick_(myWindow)
-		tell gridCols to performClick_(myWindow)
 		tell gridInnerMargin to performClick_(myWindow)
+		
+		-- Initialize the nice grid preview
+		gridWebView's setEditable_(true)
+		_updateGridPreview()
 		
 		-- Bring Finder to focus, so the user can see what's happening
 		_maybeActivateFinder()

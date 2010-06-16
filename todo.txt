@@ -1,10 +1,18 @@
 before release:
+bug issue#1
+preferences window
 resize windows
 move windows (detect borders, sux)
 icon
 donate
 sparkle
 
+New UI:
+Image for Finder window (clean)
+Image for Edge
+move: hold shift to jump 10px
+move: detect screen limits
+ 
 make ignoreInfoWindow/ignoreMinimizedWindow work for all actions
 order by title before grid/stack?
 nr of opened windows
