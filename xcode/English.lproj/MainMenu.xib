@@ -22,8 +22,8 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="29"/>
+			<integer value="1673"/>
 			<integer value="1703"/>
-			<integer value="371"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -283,7 +283,7 @@
 								<object class="NSTabViewItem" id="197919991">
 									<string key="NSIdentifier">Item 4</string>
 									<object class="NSView" key="NSView" id="9328127">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="258120647"/>
 										<int key="NSvFlags">256</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -552,6 +552,7 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 33}, {384, 216}}</string>
+										<reference key="NSSuperview" ref="258120647"/>
 									</object>
 									<string key="NSLabel">Grid</string>
 									<reference key="NSColor" ref="212112449"/>
@@ -1453,7 +1454,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<object class="NSTabViewItem" id="938739584">
 									<string key="NSIdentifier">Item 2</string>
 									<object class="NSView" key="NSView" id="871488521">
-										<reference key="NSNextResponder" ref="258120647"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1591,12 +1592,13 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{83, 3}, {218, 18}}</string>
 												<reference key="NSSuperview" ref="871488521"/>
+												<bool key="NSEnabled">YES</bool>
 												<int key="NSNumRows">1</int>
 												<int key="NSNumCols">2</int>
 												<object class="NSMutableArray" key="NSCells">
 													<bool key="EncodedWithXMLCoder">YES</bool>
 													<object class="NSButtonCell" id="486747530">
-														<int key="NSCellFlags">604634624</int>
+														<int key="NSCellFlags">67763712</int>
 														<int key="NSCellFlags2">0</int>
 														<string key="NSContents">Front window</string>
 														<reference key="NSSupport" ref="910761106"/>
@@ -1611,7 +1613,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 														<int key="NSPeriodicInterval">25</int>
 													</object>
 													<object class="NSButtonCell" id="1046556318">
-														<int key="NSCellFlags">-1542849024</int>
+														<int key="NSCellFlags">-2079719936</int>
 														<int key="NSCellFlags2">0</int>
 														<string key="NSContents">All windows</string>
 														<reference key="NSSupport" ref="910761106"/>
@@ -1662,7 +1664,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 												<int key="NSMatrixFlags">1084760064</int>
 												<string key="NSCellClass">NSActionCell</string>
 												<object class="NSButtonCell" key="NSProtoCell" id="245712127">
-													<int key="NSCellFlags">604110336</int>
+													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">0</int>
 													<string key="NSContents">Radio</string>
 													<reference key="NSSupport" ref="910761106"/>
@@ -1721,7 +1723,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 33}, {384, 216}}</string>
-										<reference key="NSSuperview" ref="258120647"/>
 									</object>
 									<string key="NSLabel">Move</string>
 									<reference key="NSColor" ref="212112449"/>
@@ -2065,14 +2066,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 									<reference key="NSTabView" ref="258120647"/>
 								</object>
 							</object>
-							<reference key="NSSelectedTabViewItem" ref="938739584"/>
+							<reference key="NSSelectedTabViewItem" ref="197919991"/>
 							<reference key="NSFont" ref="910761106"/>
 							<int key="NSTvFlags">0</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<reference ref="871488521"/>
+								<reference ref="9328127"/>
 							</object>
 						</object>
 					</object>
@@ -2090,11 +2091,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="NSClassName">NSFontManager</string>
 			</object>
 			<object class="NSUserDefaultsController" id="584924022">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>gridRows</string>
-					<string>gridCols</string>
-				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 			<object class="NSMenuItem" id="641072242">
@@ -3891,6 +3887,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="destination" ref="201968351"/>
 					</object>
 					<int key="connectionID">1964</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">moveWindows</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="241009997"/>
+					</object>
+					<int key="connectionID">1965</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -6724,7 +6728,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1964</int>
+			<int key="maxID">1965</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6778,10 +6782,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>gridInnerMargin</string>
 							<string>gridRows</string>
 							<string>gridWebView</string>
+							<string>moveWindows</string>
 							<string>myWindow</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
