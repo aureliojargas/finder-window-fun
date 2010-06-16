@@ -175,8 +175,8 @@ script FinderWindowFunAppDelegate
 	end _snapToEdge
 	
 	on _snapToGrid(_bounds)
-		set _ignoreInfoWindow to my userDefaults's boolForKey_("IgnoreInfoWindow")
-		set _ignoreMiniWindow to my userDefaults's boolForKey_("IgnoreMinimizedWindow")
+		set _ignoreInfoWindow to my userDefaults's boolForKey_("ignoreInfoWindow")
+		set _ignoreMiniWindow to my userDefaults's boolForKey_("ignoreMinimizedWindow")
 		
 		tell application "Finder"
 			set _slots to (count _bounds) -- number of grid slots

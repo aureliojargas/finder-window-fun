@@ -1,22 +1,21 @@
 before release:
 bug issue#1
-bug: won't grid when Finder Preferences window is opened
-bug: info window detection|preference seems broken
-preferences window
+bug: won't grid/edge when Finder Preferences window is opened
+move: ignore special info window (affects oneFile)
+resize: ignore special info window (affects oneFile)
+Image for Finder window (clean)
+Image for Edge
 icon
 donate
 sparkle
+docs: shift for slow motion (tks @thiagowitt)
 
-New UI:
-pref: save current tab view
-Image for Finder window (clean)
-Image for Edge
-move: hold shift to move just 1px?
+v2:
+make it a menubar app?
+preferences window
 move: detect screen limits
-move: ignore special info window (affects oneFile)
-resize: ignore special info window (affects oneFile)
 resize: detect screen limits
-
+move: hold shift to move just 1px?
 make ignoreInfoWindow/ignoreMinimizedWindow work for all actions
 order by title before grid/stack?
 nr of opened windows
@@ -26,9 +25,5 @@ show hide pathbar
 close windows / save session
 stats: nr windows (normal, minimized, info panel)
 open list of files/folders in windows (restore session)
-make it a menubar app?
 set statusbar visible of every window to true (doesn't work)
 how to set gridInnerMargin preference to integer?
-
-docs: shift for slow motion (tks @thiagowitt)
- 
