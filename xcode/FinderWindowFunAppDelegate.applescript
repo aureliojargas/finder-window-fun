@@ -314,15 +314,14 @@ script FinderWindowFunAppDelegate
 	
 	on move_(sender)
 		set _direction to (title of sender as text)
-		--set _coordinates to {▲:{0,-1},▶:{1,0},▼:{0,1},◀:{-1,0}}
 		if _direction is "▲" then
-			_move({0, -1})
+			_move({0, -10})
 		else if _direction is "▼" then
-			_move({0, 1})
+			_move({0, 10})
 		else if _direction is "◀" then
-			_move({-1, 0})
+			_move({-10, 0})
 		else if _direction is "▶" then
-			_move({1, 0})
+			_move({10, 0})
 		end if
 	end move_
 	
