@@ -92,5 +92,17 @@ issue#8 - Sliders value is not updated on startup
 
 I'm NSUserDefaults to store sliders (rows, cols, margin) position, and the text field of each slider is linked to it via takeIntvalueFrom:. Everything work fine inside the app: when user changes the slider, the text field value is updated.
 
-The problem is on the app startup. User Defaults are read and slider positions are set, but the text fields aren't. I don't know why, but sendig a performClick: to the slider, forces the text field to update itself, so it's the solution I'm using for now.
+The problem is on the app startup. User Defaults are read and slider positions are set, but the text fields aren't. I don't know why, but sending a performClick: to the slider, forces the text field to update itself, so it's the solution I'm using for now.
 
+-----------------------------------------------------------------------------
+issue#9 - Defaults set with registerDefaults_() will never be empty/nil
+-----------------------------------------------------------------------------
+
+When you register all your factory defaults with registerDefaults_(), if the user makes the control empty/nil (like deleting a text field contents), NSUserDefaultsController automatically fills the control with the factory defaults (even if the text field on the screen continues empty).
+
+For example, in resizeWidth the factory default is 640. If the user deletes the text field contents, its value is set again to the factory default: 640. But the screen isn't updated, the text field seems still empty to the user.
+
+This behavior make it impossible to bind another control to the text field's content. I wanted to make the Set Width button enabled only if both resize width and height where specified. But even with both fields empty, the button was still active. That's because in fact they were not empty, they came back to the factory default.
+
+That's why I'm setting 
+, using like NSIsNil.

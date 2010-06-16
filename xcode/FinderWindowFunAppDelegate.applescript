@@ -242,6 +242,25 @@ script FinderWindowFunAppDelegate
 		end tell
 	end _resize
 	
+	on _setSize(_width, _height)
+		log ("will set windows to: " & _width & "x" & _height)
+		tell application "Finder"
+			repeat with i from 1 to (count windows)
+				tell window i
+					set _bounds to bounds
+					set bounds to {¬
+						(item 1 of _bounds), ¬
+						(item 2 of _bounds), ¬
+						(item 1 of _bounds) + _width, ¬
+						(item 2 of _bounds) + _height - titleBarHeight ¬
+						} -- see issue#2
+					-- Maybe we're in one-window mode?
+					if my oneWindow then return
+				end tell
+			end repeat
+		end tell
+	end _setSize
+	
 	on _center()
 		set _screen to _getAvailableScreenSize()
 		tell application "Finder"
@@ -365,6 +384,8 @@ script FinderWindowFunAppDelegate
 			_resize({-10, 0})
 		else if _direction is "▶" then
 			_resize({10, 0})
+		else if _direction is "Set Size" then
+			_setSize(my userDefaults's integerForKey_("resizeWidth"), userDefaults's integerForKey_("resizeHeight"))
 		end if
 		set my oneWindow to false
 	end resize_
@@ -436,6 +457,14 @@ script FinderWindowFunAppDelegate
 		-- Set default values for preferences
 		set my userDefaults to NSUserDefaults's standardUserDefaults()
 		my userDefaults's registerDefaults_(factorySettings)
+		
+		-- Resize text fields are special (see issue#9)
+		if not (my userDefaults's boolForKey_("resizeWidth")) then
+			my userDefaults's setInteger_forKey_(640, "resizeWidth")
+		end if
+		if not (my userDefaults's boolForKey_("resizeHeight")) then
+			my userDefaults's setInteger_forKey_(480, "resizeHeight")
+		end if
 		
 		-- We're Always on Top or not?
 		_setAppWindowLevel()

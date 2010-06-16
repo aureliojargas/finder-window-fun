@@ -8,12 +8,13 @@ donate
 sparkle
 
 New UI:
+pref: save current tab view
 Image for Finder window (clean)
 Image for Edge
 move: hold shift to move just 1px?
 move: detect screen limits
-move: ignore special info window
-resize: ignore special info window
+move: ignore special info window (affects oneFile)
+resize: ignore special info window (affects oneFile)
 resize: detect screen limits
 
 make ignoreInfoWindow/ignoreMinimizedWindow work for all actions
