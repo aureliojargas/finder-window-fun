@@ -22,7 +22,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="29"/>
-			<integer value="1673"/>
+			<integer value="371"/>
 			<integer value="1703"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -283,7 +283,7 @@
 								<object class="NSTabViewItem" id="197919991">
 									<string key="NSIdentifier">Item 4</string>
 									<object class="NSView" key="NSView" id="9328127">
-										<reference key="NSNextResponder" ref="258120647"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -552,7 +552,6 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 33}, {384, 216}}</string>
-										<reference key="NSSuperview" ref="258120647"/>
 									</object>
 									<string key="NSLabel">Grid</string>
 									<reference key="NSColor" ref="212112449"/>
@@ -1454,7 +1453,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 								<object class="NSTabViewItem" id="938739584">
 									<string key="NSIdentifier">Item 2</string>
 									<object class="NSView" key="NSView" id="871488521">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="258120647"/>
 										<int key="NSvFlags">256</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1574,7 +1573,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 												<reference key="NSSuperview" ref="871488521"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="498560815">
-													<int key="NSCellFlags">604110336</int>
+													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">134217728</int>
 													<string key="NSContents">Center</string>
 													<reference key="NSSupport" ref="910761106"/>
@@ -1723,6 +1722,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 33}, {384, 216}}</string>
+										<reference key="NSSuperview" ref="258120647"/>
 									</object>
 									<string key="NSLabel">Move</string>
 									<reference key="NSColor" ref="212112449"/>
@@ -2066,14 +2066,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 									<reference key="NSTabView" ref="258120647"/>
 								</object>
 							</object>
-							<reference key="NSSelectedTabViewItem" ref="197919991"/>
+							<reference key="NSSelectedTabViewItem" ref="938739584"/>
 							<reference key="NSFont" ref="910761106"/>
 							<int key="NSTvFlags">0</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<reference ref="9328127"/>
+								<reference ref="871488521"/>
 							</object>
 						</object>
 					</object>
@@ -3896,6 +3896,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					</object>
 					<int key="connectionID">1965</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">center:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="52522865"/>
+					</object>
+					<int key="connectionID">1966</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -4790,11 +4798,11 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="203591134"/>
-							<reference ref="558392342"/>
 							<reference ref="275708045"/>
 							<reference ref="924298337"/>
 							<reference ref="958614782"/>
 							<reference ref="466885778"/>
+							<reference ref="558392342"/>
 						</object>
 						<reference key="parent" ref="721364643"/>
 					</object>
@@ -5919,10 +5927,15 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>1876.IBPluginDependency</string>
 					<string>1877.IBPluginDependency</string>
 					<string>1881.IBPluginDependency</string>
+					<string>1882.IBAttributePlaceholdersKey</string>
 					<string>1882.IBPluginDependency</string>
+					<string>1883.IBAttributePlaceholdersKey</string>
 					<string>1883.IBPluginDependency</string>
+					<string>1884.IBAttributePlaceholdersKey</string>
 					<string>1884.IBPluginDependency</string>
+					<string>1885.IBAttributePlaceholdersKey</string>
 					<string>1885.IBPluginDependency</string>
+					<string>1886.IBAttributePlaceholdersKey</string>
 					<string>1886.IBPluginDependency</string>
 					<string>1887.IBPluginDependency</string>
 					<string>1888.IBPluginDependency</string>
@@ -6418,7 +6431,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="558392342"/>
-							<string key="toolTip">Move Finder window(s) to the top of the screen</string>
+							<string key="toolTip">Resize and move Finder window(s) to the half top side of the screen</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6427,7 +6440,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="275708045"/>
-							<string key="toolTip">Move Finder window(s) to the bottom of the screen</string>
+							<string key="toolTip">Resize and move Finder window(s) to the half bottom side of the screen</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6436,7 +6449,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="924298337"/>
-							<string key="toolTip">Move Finder window(s) to the left side of the screen</string>
+							<string key="toolTip">Resize and move Finder window(s) to the half left side of the screen</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6445,7 +6458,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="958614782"/>
-							<string key="toolTip">Move Finder window(s) to the right side of the screen</string>
+							<string key="toolTip">Resize and move Finder window(s) to the half right side of the screen</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6520,10 +6533,50 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="567259139"/>
+							<string key="toolTip">Move Finder window(s) right</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="201968351"/>
+							<string key="toolTip">Move Finder window(s) left</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="356139038"/>
+							<string key="toolTip">Move Finder window(s) up</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="842966184"/>
+							<string key="toolTip">Move Finder window(s) down</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="52522865"/>
+							<string key="toolTip">Move Finder window(s) to the center of the screen</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6536,7 +6589,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="241009997"/>
-							<string key="toolTip">Choose to move to the edge just the front window or all Finder windows</string>
+							<string key="toolTip">Choose to move just the front window or all Finder windows</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6728,7 +6781,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1965</int>
+			<int key="maxID">1966</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6743,6 +6796,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>applicationShouldTerminate:</string>
 							<string>applicationShouldTerminateAfterLastWindowClosed:</string>
 							<string>applicationWillFinishLaunching:</string>
+							<string>center:</string>
 							<string>changeSidebarWidth:</string>
 							<string>gridSliderChanged:</string>
 							<string>maximize:</string>
@@ -6757,6 +6811,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

@@ -223,6 +223,25 @@ script FinderWindowFunAppDelegate
 		end tell
 	end _move
 	
+	on _center()
+		set _screen to _getAvailableScreenSize()
+		tell application "Finder"
+			repeat with i from 1 to (count windows)
+				tell window i
+					set _bounds to bounds
+					set _windowWidth to (item 3 of _bounds) - (item 1 of _bounds)
+					set _windowHeight to (item 4 of _bounds) - (item 2 of _bounds)
+					-- Center at screen *available* space. To center at screen, ignoring menubar and Dock, just remove _screen's _top/_left from below.
+					set position to {¬
+						(_screen's _left) + (((_screen's _width) - _windowWidth) / 2), ¬
+						(_screen's _top) + (((_screen's _height) - _windowHeight) / 2) + titleBarHeight ¬
+						}
+					-- Maybe we're in one-window mode?
+					if my oneWindow then return
+				end tell
+			end repeat
+		end tell
+	end _center
 	
 	on _minimize(_bool)
 		tell application "Finder" to set collapsed of every window to _bool
@@ -316,6 +335,7 @@ script FinderWindowFunAppDelegate
 	end stack_
 	
 	on move_(sender)
+		-- never activate Finder to allow "live" moving
 		if (my moveWindows's selectedColumn()) is 0 then set my oneWindow to true
 		set _direction to (title of sender as text)
 		if _direction is "▲" then
@@ -329,6 +349,13 @@ script FinderWindowFunAppDelegate
 		end if
 		set my oneWindow to false
 	end move_
+	
+	on center_(sender)
+		_maybeActivateFinder()
+		if (my moveWindows's selectedColumn()) is 0 then set my oneWindow to true
+		_center()
+		set my oneWindow to false
+	end center_
 	
 	on setView_(sender)
 		_maybeActivateFinder()

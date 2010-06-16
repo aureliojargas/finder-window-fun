@@ -1,5 +1,7 @@
 before release:
 bug issue#1
+bug: won't grid when Finder Preferences window is opened
+bug: info window detection|preference seems broken
 preferences window
 resize windows
 icon

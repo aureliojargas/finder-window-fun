@@ -75,6 +75,7 @@ Info panel (Command-I)
 
 - Title bar height: 22
 - ID: class:information window
+- ID: current panel exists
 
 properties: {
 	class:information window,
@@ -112,12 +113,8 @@ properties: {
 	class:window,
 	id:31172,
 	name:"Informações de file.txt",
-	position:{0,
-	38},
-	bounds:{0,
-	38,
-	339,
-	905},
+	position:{0, 38},
+	bounds:{0, 38, 339, 905},
 	index:1,
 	zoomed:false,
 	closeable:true,
@@ -130,3 +127,55 @@ properties: {
 	collapsed:false
 }
 
+-----------------------------------------------------------------------------
+Preferences Window
+-----------------------------------------------------------------------------
+
+- Can be moved, but can't be resized
+- ID: class:preferences window
+- ID: resizable:false
+- ID: zoomable:false
+- ID: current panel exists
+- Title bar height: 100 (toolbar always visible)
+properties: {
+	class:preferences window,
+	id:67048,
+	name:"Preferências do Finder",
+	position:{0, 100},
+	bounds:{0, 100, 355, 470},
+	index:1,
+	zoomed:true,
+	closeable:true,
+	titled:true,
+	floating:false,
+	modal:false,
+	resizable:false,
+	zoomable:false,
+	visible:true,
+	collapsed:false,
+	current panel:General Preferences panel
+}
+
+-----------------------------------------------------------------------------
+Clipping Window
+-----------------------------------------------------------------------------
+
+- For our concerns, it's the same as a normal window
+- ID: name ends with ".textClipping"
+properties: {
+	class:window,
+	id:66873,
+	name:"/a/Some random text.textClipping",
+	position:{0, 44},
+	bounds:{0, 44, 491, 256},
+	index:1,
+	zoomed:false,
+	closeable:true,
+	titled:true,
+	floating:false,
+	modal:false,
+	resizable:true,
+	zoomable:true,
+	visible:true,
+	collapsed:false
+}
