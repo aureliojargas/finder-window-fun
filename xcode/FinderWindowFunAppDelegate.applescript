@@ -22,6 +22,7 @@ script FinderWindowFunAppDelegate
 	property gridCols : missing value
 	property gridInnerMargin : missing value
 	property edgeWindows : missing value
+	property resizeWindows : missing value
 	property moveWindows : missing value
 	property gridWebView : missing value
 	
@@ -34,7 +35,7 @@ script FinderWindowFunAppDelegate
 	
 	-- preferences
 	property userDefaults : "" -- set on app init
-	property factorySettings : {gridRows:2, gridCols:2, gridInnerMargin:0, edgeWindows:0, moveWindows:1, ignoreInfoWindow:true, ignoreMinimizedWindow:true, activateFinder:true, alwaysOnTop:true, stackOffset:{22, 22}, stackMargin:{300, 300}, stackBounceOffset:{200, 0}}
+	property factorySettings : {gridRows:2, gridCols:2, gridInnerMargin:0, edgeWindows:0, resizeWindows:1, moveWindows:1, ignoreInfoWindow:true, ignoreMinimizedWindow:true, activateFinder:true, alwaysOnTop:true, stackOffset:{22, 22}, stackMargin:{300, 300}, stackBounceOffset:{200, 0}}
 	
 	-- globals	
 	property oneWindow : false
@@ -223,6 +224,24 @@ script FinderWindowFunAppDelegate
 		end tell
 	end _move
 	
+	on _resize(_steps) -- {x,y}
+		tell application "Finder"
+			repeat with i from 1 to (count windows)
+				tell window i
+					set _bounds to bounds
+					set bounds to {¬
+						(item 1 of _bounds), ¬
+						(item 2 of _bounds), ¬
+						(item 3 of _bounds) + (item 1 of _steps), ¬
+						(item 4 of _bounds) + (item 2 of _steps) ¬
+						}
+					-- Maybe we're in one-window mode?
+					if my oneWindow then return
+				end tell
+			end repeat
+		end tell
+	end _resize
+	
 	on _center()
 		set _screen to _getAvailableScreenSize()
 		tell application "Finder"
@@ -333,6 +352,22 @@ script FinderWindowFunAppDelegate
 		_maybeActivateFinder()
 		_stack()
 	end stack_
+	
+	on resize_(sender)
+		-- never activate Finder to allow "live" resizing
+		if (my resizeWindows's selectedColumn()) is 0 then set my oneWindow to true
+		set _direction to (title of sender as text)
+		if _direction is "▲" then
+			_resize({0, -10})
+		else if _direction is "▼" then
+			_resize({0, 10})
+		else if _direction is "◀" then
+			_resize({-10, 0})
+		else if _direction is "▶" then
+			_resize({10, 0})
+		end if
+		set my oneWindow to false
+	end resize_
 	
 	on move_(sender)
 		-- never activate Finder to allow "live" moving

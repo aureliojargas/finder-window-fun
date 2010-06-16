@@ -3,7 +3,6 @@ bug issue#1
 bug: won't grid when Finder Preferences window is opened
 bug: info window detection|preference seems broken
 preferences window
-resize windows
 icon
 donate
 sparkle
@@ -13,7 +12,10 @@ Image for Finder window (clean)
 Image for Edge
 move: hold shift to move just 1px?
 move: detect screen limits
- 
+move: ignore special info window
+resize: ignore special info window
+resize: detect screen limits
+
 make ignoreInfoWindow/ignoreMinimizedWindow work for all actions
 order by title before grid/stack?
 nr of opened windows
