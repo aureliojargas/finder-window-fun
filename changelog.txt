@@ -1,0 +1,26 @@
+FinderWindowFun Changelog
+-------------------------
+
+HEAD (unreleased) - 2010-06-16
+
+- New UI, using Tab Views
+- New feature: Resize
+- New feature: center windows
+
+Beta 19 — 2010-06-15
+
+- New feature: Stack windows
+- Preferences are saved (and remembered)
+
+Beta 11 — 2010-06-14
+
+- New feature: Snap window to screen edges
+
+Beta 8 — 2010-06-12
+
+- The app is a window instead a panel.
+- Quit app when it's window is closed.
+
+Beta 1 — 2010-06-11
+
+- Initial version (SVN r1)
