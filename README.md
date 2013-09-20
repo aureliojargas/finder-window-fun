@@ -10,6 +10,10 @@ As far as I remember the code was 100% working and stable, but I never bothered 
 
 I'm publishing the code hoping that it could be useful for those learning the AppleScript language.
 
+- AppleScript code: [xcode/FinderWindowFunAppDelegate.applescript](https://github.com/aureliojargas/finder-window-fun/blob/master/xcode/FinderWindowFunAppDelegate.applescript)
+
+- Screen shot: [shots/all-tabs.png](https://raw.github.com/aureliojargas/finder-window-fun/master/shots/all-tabs.png)
+
 
 ## License
 
@@ -19,7 +23,5 @@ MIT.
 ## Similar apps
 
 - [Finder Window Manager](http://www.jonn8.com/fwm/)
-
 - [Cinch](http://www.irradiatedsoftware.com/cinch/)
-
 - [ShiftIt](https://github.com/fikovnik/ShiftIt)
