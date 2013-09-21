@@ -2,7 +2,7 @@
 
 AppleScript toy to move/resize Finder windows.
 
-It was coded in 2010, using Xcode's (now deprecated) AppleScript Studio. It used to work in my Mac OS X 10.6 (Snow Leopard).
+It was coded in 2010, using Xcode's AppleScriptObjC bridge. It used to work in my Mac OS X 10.6 (Snow Leopard).
 
 I haven't touched the code since then.
 
