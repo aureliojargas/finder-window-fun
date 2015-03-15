@@ -1,5 +1,7 @@
 # FinderWindowFun
 
+![screenshot](https://raw.githubusercontent.com/aureliojargas/finder-window-fun/master/shots/all-tabs.png)
+
 AppleScript toy to move/resize Finder windows.
 
 It was coded in 2010, using Xcode's AppleScriptObjC bridge. It used to work in my Mac OS X 10.6 (Snow Leopard).
@@ -11,8 +13,6 @@ As far as I remember the code was 100% working and stable, but I never bothered 
 I'm publishing the code hoping that it could be useful for those learning the AppleScript language.
 
 - AppleScript code: [xcode/FinderWindowFunAppDelegate.applescript](https://github.com/aureliojargas/finder-window-fun/blob/master/xcode/FinderWindowFunAppDelegate.applescript)
-
-- Screen shot: [shots/all-tabs.png](https://raw.github.com/aureliojargas/finder-window-fun/master/shots/all-tabs.png)
 
 
 ## License
